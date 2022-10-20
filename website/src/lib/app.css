@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	@font-face {
+		font-family: "Cantarell";
+		src: url("ipfs://QmRHcDKPj2nHc9z4h5QbqppYUqAoR9pSvFR97dgDcBGoSX/Cantarell-VF.otf") format("opentype");
+		font-weight: 100 1000;
+		font-stretch: 25% 151%;
+		font-display: swap;
+	}
+
+	html {
+		@apply motion-safe:scroll-smooth antialiased break-words;
+	}
+}
