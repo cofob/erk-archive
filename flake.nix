@@ -52,13 +52,18 @@
             src = ./bot;
             propagatedBuildInputs = python-deps;
           };
+          py-env = pkgs.python310.withPackages (ps: python-deps ++ python-dev-deps);
         in
         {
           devShells.default = pkgs.mkShell {
-            buildInputs = (with pkgs; [
+            buildInputs = with pkgs; [
               node
               yarn18
-            ]) ++ python-deps ++ python-dev-deps;
+              py-env
+            ];
+            shellHook = ''
+              export PYTHONPATH=${py-env}/${py-env.sitePackages}
+            '';
           };
 
           packages.website = website;
