@@ -47,6 +47,13 @@
               chmod u+x $out/bin/archive-bot
             '';
           };
+          static-website = bp.legacyPackages.x86_64-linux.buildYarnPackage {
+            src = ./website;
+            installPhase = ''
+              yarn build:static
+              cp -r build $out/
+            '';
+          };
           bot = pkgs.python310Packages.buildPythonPackage rec {
             name = "archive-bot";
             src = ./bot;
@@ -67,6 +74,7 @@
           };
 
           packages.website = website;
+          packages.static = static-website;
           packages.bot = bot;
         }
       )) // {
@@ -106,6 +114,12 @@
               description = "Working directory for archive bot";
             };
 
+            launch-website = mkOption {
+              type = types.bool;
+              default = false;
+              description = "Launch website or not";
+            };
+
             website-package = mkOption {
               type = types.package;
               default = self.packages.x86_64-linux.website;
@@ -120,7 +134,7 @@
           };
 
           config.systemd.services = mkIf cfg.enable {
-            archive-bot-website = {
+            archive-bot-website = mkIf cfg.launch-website {
               enable = true;
               description = "archive bot website";
               script = "${cfg.website-package}/bin/archive-bot";
