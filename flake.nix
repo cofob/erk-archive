@@ -182,7 +182,7 @@
                 Group = "archive-bot";
                 Restart = "on-failure";
                 RestartSec = "1s";
-                Environment = cfg.environment;
+                EnvironmentFile = cfg.environment;
                 WorkingDirectory = cfg.workdir;
               };
               wantedBy = [ "multi-user.target" ];
