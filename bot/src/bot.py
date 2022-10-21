@@ -41,7 +41,6 @@ class Bot:
     def start(self, update: Update, context: CallbackContext) -> None:
         """Send a message when the command /start is issued."""
         logger.debug("Start command issued.")
-        user = update.effective_user
         update.message.reply_text(
             "Please press the button below to choose a color via the WebApp.",
             reply_markup=ReplyKeyboardMarkup.from_button(
