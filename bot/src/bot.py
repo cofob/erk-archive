@@ -7,6 +7,7 @@ from pyrogram.types import Message
 
 from . import __version__
 from .filters import webapp_filter
+from .types import WebAppTypes
 from .utils import get_webapp_data
 
 
@@ -50,7 +51,9 @@ class Bot:
         self.client.add_handler(MessageHandler(self.help, filters.command("help")))
 
         # Register WebView handler
-        self.client.add_handler(MessageHandler(self.on_webapp, webapp_filter()))
+        self.client.add_handler(
+            MessageHandler(self.on_webapp, webapp_filter(WebAppTypes.TEST))
+        )
 
         self.logger.debug("Handlers registered.")
 
