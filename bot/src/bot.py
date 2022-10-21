@@ -3,7 +3,7 @@ import logging
 
 from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
 from . import __version__
 from .filters import webapp_filter
@@ -35,7 +35,18 @@ class Bot:
     async def start(self, client: Client, message: Message):
         """Handle /start command."""
         self.logger.debug("Start command received.")
-        await message.reply_text("Hello, world!")
+        await message.reply_text(
+            "Hello, world!",
+            reply_markup=InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [
+                        InlineKeyboardButton(
+                            text="Open webapp", web_app=WebAppInfo(url=self.domain + "/")
+                        )
+                    ]
+                ]
+            ),
+        )
 
     async def help(self, client: Client, message: Message):
         """Handle /help command."""
@@ -56,7 +67,7 @@ class Bot:
         self.client.add_handler(MessageHandler(self.help, filters.command("help")))
 
         # Register WebView handler
-        self.client.add_handler(MessageHandler(self.on_webapp, webapp_filter(WebAppTypes.TEST)))
+        self.client.add_handler(MessageHandler(self.on_webapp, webapp_filter()))
 
         self.logger.debug("Handlers registered.")
 

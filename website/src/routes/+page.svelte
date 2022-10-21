@@ -6,7 +6,7 @@
 	window.Telegram.WebApp.MainButton.setText("Подтвердить")
 		.show()
 		.onClick(function () {
-			const data = JSON.stringify({ type: WebAppTypes.TEST, value });
+			const data = JSON.stringify({ type: WebAppTypes.TEST, value: "test" });
 			window.Telegram.WebApp.sendData(data);
 			window.Telegram.WebApp.close();
 		});
