@@ -1,6 +1,8 @@
 <script lang="ts">
 	import "$lib/app.css";
 	import { Heading } from "$lib/components";
+
+	window.Telegram.WebApp.ready();
 </script>
 
 <svelte:head>
