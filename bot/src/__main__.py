@@ -1,12 +1,24 @@
-from .bot import Bot
+import logging
 from os import environ
+
+from .bot import Bot
 
 
 def main():
-    if "TOKEN" not in environ:
-        raise Exception("No token found in environment variables.")
+    # Initialize the logger
+    logging.getLogger("pyrogram").setLevel(environ.get("PYROGRAM_LOG_LEVEL", "WARNING"))
+    logging.basicConfig(
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        level=environ.get("LOG_LEVEL", "INFO"),
+    )
 
-    bot = Bot(environ["TOKEN"])
+    for var in ["TOKEN", "API_ID", "API_HASH", "DOMAIN"]:
+        if not environ[var]:
+            raise ValueError(f"Environment variable {var} is not set.")
+
+    bot = Bot(
+        environ["TOKEN"], int(environ["API_ID"]), environ["API_HASH"], environ["DOMAIN"]
+    )
     bot.run()
 
 

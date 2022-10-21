@@ -17,7 +17,8 @@
           node = pkgs.nodejs-18_x;
           yarn18 = pkgs.yarn.overrideAttrs (old: { buildInputs = [ node ]; });
           python-deps = with pkgs.python310Packages; [
-            python-telegram-bot
+            pyrogram
+            tgcrypto
             sqlalchemy
           ];
           python-dev-deps = with pkgs.python310Packages; [
@@ -103,6 +104,11 @@
               description = "Domain to use";
             };
 
+            log_level = mkOption {
+              type = types.enum [ "DEBUG" "INFO" "WARNING" "ERROR" "CRITICAL" ];
+              description = "Logging level";
+            };
+
             environment = mkOption {
               type = types.path;
               description = "Path to bot environment with secrets";
@@ -161,6 +167,7 @@
               requires = [ "archive-bot-website.service" ];
               environment = {
                 DOMAIN = cfg.domain;
+                LOG_LEVEL = cfg.log_level;
               };
               unitConfig = {
                 Type = "simple";
