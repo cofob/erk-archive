@@ -13,12 +13,10 @@ def main():
     )
 
     for var in ["TOKEN", "API_ID", "API_HASH", "DOMAIN"]:
-        if not environ[var]:
+        if environ.get(var) is None:
             raise ValueError(f"Environment variable {var} is not set.")
 
-    bot = Bot(
-        environ["TOKEN"], int(environ["API_ID"]), environ["API_HASH"], environ["DOMAIN"]
-    )
+    bot = Bot(environ["TOKEN"], int(environ["API_ID"]), environ["API_HASH"], environ["DOMAIN"])
     bot.run()
 
 
