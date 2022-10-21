@@ -1,5 +1,6 @@
 #!python
 from src.__main__ import main
+from sys import argv
 
 if __name__ == "__main__":
-    main()
+    main(argv[1], argv[2], argv[3], argv[4])
