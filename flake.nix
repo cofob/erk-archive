@@ -166,7 +166,6 @@
               description = "archive bot";
               script =
                 ''
-                  echo "$TOKEN $API_ID $API_HASH $DOMAIN"
                   ${cfg.bot-package}/bin/archive-bot
                 '';
               requires = optional cfg.launch-website "archive-bot-website.service";
