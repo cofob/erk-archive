@@ -106,6 +106,7 @@
 
             log_level = mkOption {
               type = types.enum [ "DEBUG" "INFO" "WARNING" "ERROR" "CRITICAL" ];
+              default = "INFO";
               description = "Logging level";
             };
 
