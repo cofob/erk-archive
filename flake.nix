@@ -164,7 +164,11 @@
             archive-bot = {
               enable = true;
               description = "archive bot";
-              script = "${cfg.bot-package}/bin/archive-bot $TOKEN $API_ID $API_HASH $DOMAIN";
+              script =
+                ''
+                  echo "$TOKEN $API_ID $API_HASH $DOMAIN"
+                  ${cfg.bot-package}/bin/archive-bot
+                '';
               requires = optional cfg.launch-website "archive-bot-website.service";
               environment = {
                 DOMAIN = cfg.domain;
