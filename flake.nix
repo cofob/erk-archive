@@ -165,7 +165,7 @@
               enable = true;
               description = "archive bot";
               script = "${cfg.bot-package}/bin/archive-bot";
-              requires = [ "archive-bot-website.service" ];
+              requires = optional cfg.launch-website "archive-bot-website.service";
               environment = {
                 DOMAIN = cfg.domain;
                 LOG_LEVEL = cfg.log_level;
