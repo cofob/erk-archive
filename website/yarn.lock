@@ -495,6 +495,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/telegram-web-app@^6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@types/telegram-web-app/-/telegram-web-app-6.2.2.tgz#0d4b74d159d6c704cef4503abf19541bf399dd7b"
+  integrity sha512-VkNreOOz2uZPkX8w1ex5zp/oKVKnxDJ2gqmWzzGsREmJ9k8mfkRvuofazqAPDQ6xYj4YlPO1mM0rdeyidOdmpg==
+
 "@typescript-eslint/eslint-plugin@^5.27.0":
   version "5.40.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.40.0.tgz#0159bb71410eec563968288a17bd4478cdb685bd"
