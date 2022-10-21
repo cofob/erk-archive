@@ -1,15 +1,21 @@
 <script lang="ts">
+	import { title } from "$lib/stores";
 	import { WebAppTypes } from "$lib/types";
 
 	let value: string;
 
-	window.Telegram.WebApp.MainButton.setText("Подтвердить")
-		.show()
-		.onClick(function () {
-			const data = JSON.stringify({ type: WebAppTypes.TEST, value: "test" });
-			window.Telegram.WebApp.sendData(data);
-			window.Telegram.WebApp.close();
-		});
+	function submit() {
+		const data = JSON.stringify({ type: WebAppTypes.TEST, value });
+		window.Telegram.WebApp.sendData(data);
+		window.Telegram.WebApp.close();
+	}
+
+	window.Telegram.WebApp.MainButton.setText("Подтвердить").show().onClick(submit);
+
+	title.set("Тестовая страница");
 </script>
 
-<input type="text" class="bg-neutral-700" placeholder="Текст..." required bind:value />
+<section>
+	<input type="text" placeholder="Текст..." required bind:value />
+</section>
+<input type="button" value="Отправить" on:click={submit} />

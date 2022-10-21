@@ -3,7 +3,6 @@ require("dotenv").config();
 let config = {
 	plugins: {
 		"postcss-import": {},
-		tailwindcss: {},
 		autoprefixer: {},
 		"postcss-ipfs": {
 			gateway: process.env.VITE_IPFS_ENDPOINT + "/",

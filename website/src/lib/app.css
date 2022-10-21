@@ -1,17 +1,67 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
-	@font-face {
-		font-family: "Cantarell";
-		src: url("ipfs://QmRHcDKPj2nHc9z4h5QbqppYUqAoR9pSvFR97dgDcBGoSX/Cantarell-VF.otf") format("opentype");
-		font-weight: 100 1000;
-		font-stretch: 25% 151%;
-		font-display: swap;
+	html {
+		color: var(--tg-theme-text-color);
+		background-color: var(--tg-theme-secondary-bg-color);
 	}
 
-	html {
-		@apply motion-safe:scroll-smooth antialiased break-words;
+	.link {
+		color: var(--tg-theme-link-color);
+	}
+
+	.hint {
+		color: var(--tg-theme-hint-color);
+	}
+
+	.bg {
+		background-color: var(--tg-theme-bg-color);
+	}
+
+	input {
+		width: 100%;
+		padding: 10px;
+		padding-left: 5px;
+		padding-right: 5px;
+		border: 1px solid var(--tg-theme-hint-color);
+		border-radius: 10px;
+		background-color: var(--tg-theme-bg-color);
+		color: var(--tg-theme-button-text-color);
+	}
+
+	input[type=text] {
+		/* Crunch to fix strange text input width */
+		width: 99.3%;
+	}
+
+	input[type=button] {
+		width: 100%;
+		padding: 10px;
+		padding-left: 5px;
+		padding-right: 5px;
+		border: 1px solid var(--tg-theme-button-color);
+		border-radius: 10px;
+		color: var(--tg-theme-button-text-color);
+		background-color: var(--tg-theme-button-color);
+	}
+
+	input + input {
+		margin-top: 10px;
+	}
+
+	section {
+		padding: 10px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		margin-bottom: 10px;
+		border-radius: 15px;
+		background-color: var(--tg-theme-bg-color);
+	}
+
+	.top-nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 10px;
+		font-weight: bold;
+		font-size: small;
 	}
 }

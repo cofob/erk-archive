@@ -20,7 +20,7 @@ switch (process.env.VITE_DEPLOY_TARGET) {
 }
 
 const get_css_hash = ({ css, hash }) => {
-	return `swiftspark-${hash(css)}`;
+	return `css-${hash(css)}`;
 };
 
 /** @type {import('@sveltejs/kit').Config} */

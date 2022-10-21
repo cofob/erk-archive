@@ -3,7 +3,7 @@ import logging
 
 from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from pyrogram.types import Message, WebAppInfo, KeyboardButton, ReplyKeyboardMarkup
 
 from . import __version__
 from .filters import webapp_filter
@@ -37,13 +37,9 @@ class Bot:
         self.logger.debug("Start command received.")
         await message.reply_text(
             "Hello, world!",
-            reply_markup=InlineKeyboardMarkup(
-                inline_keyboard=[
-                    [
-                        InlineKeyboardButton(
-                            text="Open webapp", web_app=WebAppInfo(url=self.domain + "/")
-                        )
-                    ]
+            reply_markup=ReplyKeyboardMarkup(
+                keyboard=[
+                    [KeyboardButton(text="Open webapp", web_app=WebAppInfo(url=self.domain + "/"))]
                 ]
             ),
         )
@@ -53,11 +49,11 @@ class Bot:
         self.logger.debug("Help command received.")
         await message.reply_text("Help message.")
 
-    async def on_webapp(self, client: Client, message: Message):
-        """Handle webapp status."""
+    async def on_webapp_test(self, client: Client, message: Message):
+        """Handle webapp TEST status."""
         data = get_webapp_data(message)
-        self.logger.debug(f"Webapp received: {data}")
-        await message.reply_text("Data received: " + json.dumps(data))
+        self.logger.debug(f"Webapp received: {data.get('value')}")
+        await message.reply_text("Data received: " + data.get("value"))
 
     def register_handlers(self):
         """Register the handlers."""
@@ -67,7 +63,7 @@ class Bot:
         self.client.add_handler(MessageHandler(self.help, filters.command("help")))
 
         # Register WebView handler
-        self.client.add_handler(MessageHandler(self.on_webapp, webapp_filter()))
+        self.client.add_handler(MessageHandler(self.on_webapp_test, webapp_filter(WebAppTypes.TEST)))
 
         self.logger.debug("Handlers registered.")
 
