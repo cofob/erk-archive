@@ -1,16 +1,8 @@
 #!python
 from os import environ
 from src.__main__ import main
-from sys import argv
 
 if __name__ == "__main__":
-    try:
-        try:
-            try:
-                main(argv[1], argv[2], argv[3], argv[4])
-            except IndexError:
-                main(*argv[1].split(" "))
-        except IndexError:
-            main(environ["TOKEN"], environ["API_ID"], environ["API_HASH"], environ["DOMAIN"])
-    except KeyError:
-        print(f"Usage: {argv[0]} [TOKEN] [API_ID] [API_HASH] [DOMAIN]")
+    main(
+        environ["TOKEN"], environ["API_ID"], environ["API_HASH"], environ["DOMAIN"], environ["HOME"]
+    )

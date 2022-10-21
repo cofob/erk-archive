@@ -12,7 +12,9 @@ from .utils import get_webapp_data
 
 
 class Bot:
-    def __init__(self, bot_token: str, api_id: int, api_hash: str, domain: str):
+    def __init__(
+        self, bot_token: str, api_id: int, api_hash: str, domain: str, workdir: str | None = None
+    ):
         """Initialize the bot.
 
         Args:
@@ -20,9 +22,12 @@ class Bot:
             api_id (int): The Telegram API ID.
             api_hash (str): The Telegram API hash.
             domain (str): The domain of the webapp.
+            workdir (str, optional): The working directory. Defaults to None.
         """
         self.logger = logging.getLogger(__name__)
-        self.client = Client("bot", api_id, api_hash, bot_token=bot_token)
+        if workdir is None:
+            workdir = str(Client.WORKDIR)
+        self.client = Client("bot", api_id, api_hash, bot_token=bot_token, workdir=workdir)
         self.domain = domain
         self.register_handlers()
         self.logger.debug("Bot initialized.")
@@ -51,9 +56,7 @@ class Bot:
         self.client.add_handler(MessageHandler(self.help, filters.command("help")))
 
         # Register WebView handler
-        self.client.add_handler(
-            MessageHandler(self.on_webapp, webapp_filter(WebAppTypes.TEST))
-        )
+        self.client.add_handler(MessageHandler(self.on_webapp, webapp_filter(WebAppTypes.TEST)))
 
         self.logger.debug("Handlers registered.")
 

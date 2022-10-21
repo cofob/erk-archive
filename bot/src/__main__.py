@@ -4,7 +4,7 @@ from os import environ
 from .bot import Bot
 
 
-def main(token: str, api_id: str, api_hash: str, domain: str):
+def main(token: str, api_id: str, api_hash: str, domain: str, workdir: str | None = None):
     # Initialize the logger
     logging.getLogger("pyrogram").setLevel(environ.get("PYROGRAM_LOG_LEVEL", "WARNING"))
     logging.basicConfig(
@@ -12,7 +12,7 @@ def main(token: str, api_id: str, api_hash: str, domain: str):
         level=environ.get("LOG_LEVEL", "INFO"),
     )
 
-    bot = Bot(token, int(api_id), api_hash, domain)
+    bot = Bot(token, int(api_id), api_hash, domain, workdir)
     bot.run()
 
 
